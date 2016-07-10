@@ -4,7 +4,7 @@
 
 > **NOTE:** These steps are written for VMware Fusion 8.
 
-1. Install Vagrant, VMware and the VMware Provider for Vagrant.
+1. Install Vagrant, VMware Fusion and the VMware Provider for Vagrant.
 
 1. Download [CentOS 7.2 (x86_64)](https://www.centos.org/download/).
 
