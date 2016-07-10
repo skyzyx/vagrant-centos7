@@ -1,4 +1,4 @@
-# Building a new Vagrant-based CentOS 6.7 image
+# Building a new Vagrant-based CentOS 7.2 image
 
 ## Setting up the VM
 
@@ -83,7 +83,7 @@ $ reboot
 
 When the OS is back, log back in as `root`.
 
-Restart the `eth0` interface and lookup the IP address for `eth0`:
+Restart the interface and lookup the IP address:
 
 ```bash
 $ ifup {adapter} && ip addr
@@ -125,7 +125,7 @@ Now, you can use your Mac-isms (like copy-paste).
 Now that you're logged into the VM with your Mac, run the following command. This does the bootstrapping of the disk image.
 
 ```bash
-$ curl https://raw.github.devops.wepay-inc.com/devtools/vagrant-centos6/master/src/setup-install.sh | bash
+$ curl -s https://raw.githubusercontent.com/skyzyx/vagrant-centos7/master/src/setup-install.sh | bash
 ```
 
 This will make the necessary changes to the environment to prepare it for becoming a Vagrant box. Once the script completes, shutdown the VM immediately.
@@ -145,13 +145,13 @@ $ shutdown -h now
 Go to the directory where your virtual machines are stored. By default this will be either `~/Documents/Virtual\ Machines` or `~/Documents/Virtual\ Machines.localized`.
 
 ```bash
-$ cd ~/Documents/Virtual\ Machines/centos-6.7-x86_64.vmwarevm
+$ cd ~/Documents/Virtual\ Machines/centos-7.2-x64.vmwarevm
 ```
 
 Run the following command:
 
 ```bash
-$ curl https://raw.github.devops.wepay-inc.com/devtools/vagrant-centos6/master/src/build-box-fusion.sh | bash
+$ curl -s https://raw.githubusercontent.com/skyzyx/vagrant-centos7/master/src/build-box-fusion.sh | bash
 ```
 
 ## Updating the assets
@@ -159,7 +159,7 @@ $ curl https://raw.github.devops.wepay-inc.com/devtools/vagrant-centos6/master/s
 First, you need to generate a hash of the `.box` file.
 
 ```bash
-$ openssl dgst -sha256 centos-6.7-x86_64.vmware.box
+$ openssl dgst -sha256 centos-7.2-x64.vmware.box
 ```
 
 ### Vagrantfile
