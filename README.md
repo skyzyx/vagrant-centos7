@@ -167,26 +167,5 @@ $ openssl dgst -sha256 centos-7.2-x64.vmware.box
 Inside the `Vagrantfile`, look for the following section:
 
 ```ruby
-config.vm.box = "wepay/centos-6.7"
-config.vm.box_url = "https://artifactory.devops.wepay-inc.com/artifactory/vagrant/centos-6.7-x86_64.vmware.box"
-config.vm.box_download_checksum = "28e27735857e28b5ceab196398dbf1be4f9af9c5ae8ebe83ed938b8596a72b5b"
-config.vm.box_download_checksum_type = "sha256"
-```
-
-1. Update `config.vm.box_download_checksum` with the hash value that you generated a moment ago.
-
-1. The `config.vm.box_url` will be updated according to the next section.
-
-### Artifactory
-
-Change the value of `box_version` at the end of the following cURL URL to the distribution version + the build of this image (e.g., `6.7.5`).
-
-```
-curl -i \
-    -X PUT \
-    --progress-bar \
-    --verbose \
-    -T centos-6.7-x86_64.vmware.box \
-    "https://artifactory.devops.wepay-inc.com/artifactory/vagrant/centos-6.7-x86_64.vmware.box;box_name=wepay/centos-6.7;box_provider=vmware_fusion;box_version=6.7.5" \
-    | tee -a /tmp/artifactory-vagrant-upload ; test ${PIPESTATUS[0]} -eq 0
+config.vm.box = "skyzyx/centos7"
 ```
