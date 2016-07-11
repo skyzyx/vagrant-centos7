@@ -1,4 +1,4 @@
-# CentOS 7.2 Vagrant Boxes
+# CentOS 7.2 Vagrant/Docker Boxes
 
 Building Vagrant images based on CentOS 7.2 (minimal install). All instructions were tested against OS X 10.11 “El Capitan”, VMware Fusion 8, VirtualBox 5, and Parallels Desktop 11.
 
@@ -10,14 +10,23 @@ config.vm.box = "skyzyx/centos7"
 
 ## Prerequisites
 
-* Knowledge of the command line.
 * [Packer](https://www.packer.io/downloads.html) 0.10.1 or newer.
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads), for building the VirtualBox Vagrant box.
+    * [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plug-in to keep VirtualBox tools up-to-date.
 * [VMware Fusion](http://www.vmware.com/products/fusion), for building the VMware Vagrant box.
-    * [Vagrant Provider for VMware](https://www.vagrantup.com/vmware/) if you want VMware to work with Vagrant.
+    * [Vagrant Provider for VMware](https://www.vagrantup.com/vmware/) plug-in to enable Vagrant to use VMware as a provider.
 * [Parallels Desktop](http://www.parallels.com/products/desktop/download/), for building the Parallels Vagrant box.
     * [Parallels Virtualization SDK for Mac](http://www.parallels.com/download/pvsdk/) so that your Mac can talk to Parallels through Vagrant.
-* Knowledge of Bash scripting and JSON if you want to fork this repo and make changes.
+    * [vagrant-parallels](http://parallels.github.io/vagrant-parallels/) plug-in to enable Vagrant to use Parallels as a provider.
+* [vagrant-cachier](http://fgrehm.viewdocs.io/vagrant-cachier/) plug-in to enable caching of `yum` packages.
+
+## Updating your Plug-Ins
+
+This is simply a good thing to do from time to time.
+
+```bash
+vagrant plugin update
+```
 
 ## Installing Packer
 
@@ -36,7 +45,7 @@ You have two choices for installing Packer.
 
 1. Otherwise, you can manually install it from <https://www.packer.io/downloads.html>.
 
-## Building Boxes
+## Building Vagrant Boxes
 
 ### Build everything
 
@@ -60,3 +69,23 @@ packer build --only=virtualbox-iso template.json
 # Parallels
 packer build --only=parallels-iso template.json
 ```
+
+## Building the Docker Image
+
+1. Boot-up a Vagrant VM.
+
+   ```bash
+   vagrant up
+   ```
+
+2. Log into the VM.
+
+   ```bash
+   vagrant ssh
+   ```
+
+3. Run Packer from inside the VM to build the Docker image.
+
+   ```bash
+   packer build template-docker.json
+   ```

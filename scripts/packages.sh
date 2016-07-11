@@ -49,6 +49,7 @@ yum -y install \
     bind-utils \
     bzip2 \
     ca-certificates \
+    cpp \
     cronie \
     cronie-anacron \
     crontabs \
@@ -64,6 +65,7 @@ yum -y install \
     iptables \
     iputils \
     kernel-devel-`uname -r`  \
+    kernel-headers-`uname -r` \
     libcgroup \
     libselinux-python \
     make \
