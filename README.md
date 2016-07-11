@@ -8,6 +8,9 @@ If your intention is only to _use_ one of these CentOS 7.2 images, you can open 
 config.vm.box = "skyzyx/centos7"
 ```
 
+* [atlas.hashicorp.com](https://atlas.hashicorp.com/skyzyx/boxes/centos7/)
+* [hub.docker.com](https://hub.docker.com/r/skyzyx/centos7/)
+
 ## Prerequisites
 
 * [Packer](https://www.packer.io/downloads.html) 0.10.1 or newer.
@@ -80,8 +83,20 @@ packer build --only=parallels-iso template.json
    vagrant up
    ```
 
-2. Once it's done, terminate the Vagrant environment.
+2. If you would like to test it, you can import the image into Docker and run the container.
 
    ```bash
+   # SSH into the VM.
+   vagrant ssh
+   
+   cd /vagrant
+   cat builds/centos7-x64-docker.tar | docker import - skyzyx/centos7:latest
+   docker run -ti skyzyx/centos7:latest /bin/bash
+   ```
+
+3. When you're done, exit the Vagrant VM, then terminate it.
+
+   ```bash
+   exit
    vagrant destroy
    ```
