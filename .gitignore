@@ -1,5 +1,5 @@
 .DS_Store
-builds/*.box
+builds/
 http/
 output-parallels-iso/
 output-virtualbox-iso/

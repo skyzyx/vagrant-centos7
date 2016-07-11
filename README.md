@@ -45,6 +45,8 @@ You have two choices for installing Packer.
 
 1. Otherwise, you can manually install it from <https://www.packer.io/downloads.html>.
 
+See “[Install Packer](https://www.packer.io/intro/getting-started/setup.html)” for more information.
+
 ## Building Vagrant Boxes
 
 ### Build everything
@@ -72,20 +74,14 @@ packer build --only=parallels-iso template.json
 
 ## Building the Docker Image
 
-1. Boot-up a Vagrant VM.
+1. Boot-up a Vagrant VM. This will automatically kick-off the Packer build for Docker.
 
    ```bash
    vagrant up
    ```
 
-2. Log into the VM.
+2. Once it's done, terminate the Vagrant environment.
 
    ```bash
-   vagrant ssh
-   ```
-
-3. Run Packer from inside the VM to build the Docker image.
-
-   ```bash
-   packer build template-docker.json
+   vagrant destroy
    ```

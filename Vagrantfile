@@ -8,6 +8,7 @@ Vagrant.configure("2") do | config |
 
   # Box
   config.vm.box = "skyzyx/centos7"
+  config.vm.box_url = "file://./builds/centos7-x64-virtualbox.box"
   config.vm.boot_timeout = 120
 
   # Check for vbguest plugin
@@ -52,4 +53,11 @@ Vagrant.configure("2") do | config |
   end
 
   config.vm.provision :shell, inline: "yum -y install docker-engine"
+  config.vm.provision :shell, inline: "systemctl enable docker.service"
+  config.vm.provision :shell, inline: "systemctl start docker.service"
+  config.vm.provision :shell, inline: "wget -O /tmp/packer.zip https://releases.hashicorp.com/packer/0.10.1/packer_0.10.1_linux_amd64.zip"
+  config.vm.provision :shell, inline: "unzip -o -d /usr/local/bin/ /tmp/packer.zip"
+  config.vm.provision :shell, inline: "ln -fs /usr/local/bin/packer /usr/local/bin/packer-io"
+  config.vm.provision :shell, inline: "groupmems -g docker -a vagrant"
+  config.vm.provision :shell, inline: "cd /vagrant && packer-io build template-docker.json"
 end

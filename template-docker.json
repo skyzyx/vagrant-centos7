@@ -3,13 +3,13 @@
     {
       "type": "docker",
       "image": "centos:7.2.1511",
-      "export_path": "builds/centos7-x64-{{.Provider}}.tar"
+      "export_path": "builds/centos7-x64-docker.tar"
     }
   ],
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | sudo -S sh '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | sh '{{.Path}}'",
       "override": {
         "docker": {
           "scripts": [
