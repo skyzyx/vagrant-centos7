@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0 - 2016-07-11
+
+* Simplified some of the provisioning code by leveraging some scripts from [chef/bento](https://github.com/chef/bento).
+* Resolved an issue with HGFS drivers in the VMware box.
+
 ## 2.0.0 - 2016-07-10
 
 * Rebuilt version 1.0.0 with [Packer](https://packer.io) by forking [shiguredo/packer-templates](https://github.com/shiguredo/packer-templates/tree/develop/centos-7.1).
