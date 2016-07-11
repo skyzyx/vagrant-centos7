@@ -1,0 +1,118 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "RedHat_64",
+      "http_directory": "http",
+      "iso_url": "http://mirrors.kernel.org/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+      "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "history -c; echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant' | sudo -S sh '/tmp/shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "centos-64",
+      "http_directory": "http",
+      "iso_url": "http://mirrors.kernel.org/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+      "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "history -c; echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant' | sudo -S sh '/tmp/shutdown.sh'",
+      "tools_upload_flavor": "linux",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      }
+    },
+    {
+      "type": "parallels-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 20480,
+      "guest_os_type": "centos7",
+      "http_directory": "http",
+      "iso_url": "http://mirrors.kernel.org/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
+      "iso_checksum": "f90e4d28fa377669b2db16cbcb451fcb9a89d2460e3645993e30e137ac37d284",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "history -c; echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo 'vagrant' | sudo -S sh '/tmp/shutdown.sh'",
+      "parallels_tools_flavor": "lin",
+      "prlctl": [
+        ["set", "{{.Name}}", "--memsize", "512"],
+        ["set", "{{.Name}}", "--cpus", "1"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | sudo -S sh '{{.Path}}'",
+      "override": {
+        "virtualbox-iso": {
+          "scripts": [
+            "scripts/base.sh",
+            "scripts/configs.sh",
+            "scripts/packages.sh",
+            "scripts/vagrant.sh",
+            "scripts/virtualbox.sh",
+            "scripts/cleanup.sh"
+          ]
+        },
+        "vmware-iso": {
+          "scripts": [
+            "scripts/base.sh",
+            "scripts/configs.sh",
+            "scripts/packages.sh",
+            "scripts/vagrant.sh",
+            "scripts/vmware.sh",
+            "scripts/cleanup.sh"
+          ]
+        },
+        "parallels-iso": {
+          "scripts": [
+            "scripts/base.sh",
+            "scripts/configs.sh",
+            "scripts/packages.sh",
+            "scripts/vagrant.sh",
+            "scripts/cleanup.sh"
+          ]
+        }
+      }
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "builds/centos7-x64-{{.Provider}}.box"
+    }
+  ]
+}

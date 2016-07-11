@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 - 2016-07-10
+
+* Rebuilt version 1.0.0 with [Packer](https://packer.io) by forking [shiguredo/packer-templates](https://github.com/shiguredo/packer-templates/tree/develop/centos-7.1).
+* Added support for VirtualBox.
+* Added support for Parallels Desktop
+
 ## 1.0.0 - 2016-07-10
 
 * Initial release.

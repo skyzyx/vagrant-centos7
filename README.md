@@ -1,171 +1,62 @@
-# Building a new Vagrant-based CentOS 7.2 image
+# CentOS 7.2 Vagrant Boxes
 
-## Setting up the VM
+Building Vagrant images based on CentOS 7.2 (minimal install). All instructions were tested against OS X 10.11 “El Capitan”, VMware Fusion 8, VirtualBox 5, and Parallels Desktop 11.
 
-> **NOTE:** These steps are written for VMware Fusion 8.
-
-1. Install Vagrant, VMware Fusion and the VMware Provider for Vagrant.
-
-1. Download [CentOS 7.2 (x86_64)](https://www.centos.org/download/).
-
-1. Open VMware Fusion, go to _File → New…_.
-
-1. Click _Create a custom virtual machine_ and click _Continue_.
-
-1. Click _Linux → CentOS 64-bit_, and click _Continue_.
-
-1. Choose _Create a new virtual disk_, and click _Continue_.
-
-1. Click _Customize Settings_.
-
-1. Save your virtual machine with what name you like, I chose `centos-7.2-x64`, and click _Save_.
-
-### The VMware Settings Pane
-
-<table class="remarkup-table">
-<tbody><tr><td><strong>Pane</strong></td><td><strong>Option</strong></td><td><strong>Value</strong></td></tr>
-<tr><td>Sharing</td><td>Shared Folders</td><td>Off</td></tr>
-<tr><td>Processors &amp; Memory</td><td>Processors</td><td>1</td></tr>
-<tr><td></td><td>Memory</td><td>512</td></tr>
-<tr><td></td><td>Advanced → Enable hypervisor applications</td><td>On</td></tr>
-<tr><td></td><td>Advanced → Enable code profiling applications</td><td>On</td></tr>
-<tr><td>Display</td><td>Accelerate 3D Graphics</td><td>Off</td></tr>
-<tr><td>Network Adapter</td><td>Share with my Mac</td><td>On</td></tr>
-<tr><td>Hard Disk (SCSI)</td><td>Disk size</td><td>20.00 GB</td></tr>
-<tr><td></td><td>Advanced → Bus Type</td><td>SATA</td></tr>
-<tr><td></td><td>Advanced → Split into 2 GB files</td><td>Off</td></tr>
-<tr><td>CD/DVD</td><td>Advanced options → Bus type</td><td>IDE</td></tr>
-<tr><td>Cameras</td><td>Delete cameras</td><td></td></tr>
-<tr><td>Compatibility</td><td>Advanced → Use Hardware Version</td><td>10</td></tr>
-<tr><td></td><td>Allow upgrading the virtual hardware</td><td>On</td></tr>
-<tr><td>Isolation</td><td>Enable Drag and Drop</td><td>Off</td></tr>
-<tr><td></td><td>Enable Copy and Paste</td><td>Off</td></tr>
-<tr><td>Sound Card</td><td>Remove Sound Card</td><td></td></tr>
-<tr><td>USB &amp; Bluetooth</td><td>Advanced → Remove USB Controller</td><td></td></tr>
-<tr><td>Printer</td><td>Remove Printer Port</td><td></td></tr>
-</tbody></table>
-
-Close the Settings menu. Start up the virtual machine and begin installation.
-
-### Installing the OS
-
-Install the operating system however you like. Most of the default options can be used, except for the **root password**, which should be `vagrant`.
-
-### Enabling the network adapter
-
-We need to do some basic work up-front before we can script the installation. Login as `root` (password: `vagrant`).
-
-By default, networking is not brought up, so bring it up:
-
-```bash
-# Find the name of your network adapter
-$ nmcli d
-
-# Bring it up
-ifup {adapter}
-```
-
-### Enabling SSH
-
-Enable the `ssh` service to start on boot:
-
-```bash
-$ chkconfig sshd on
-```
-
-Then reboot the OS.
-
-```bash
-$ reboot
-```
-
-### Connecting over SSH
-
-When the OS is back, log back in as `root`.
-
-Restart the interface and lookup the IP address:
-
-```bash
-$ ifup {adapter} && ip addr
-```
-
-The results will look something like this:
-```
-eth0  Link encap:Ethernet  HWaddr 00:0C:29:1C:89:92
-      inet addr:192.168.13.129  Bcast:192.168.13.255  Mask:255.255.255.0
-      inet6 addr: fe80::20c:29ff:fe1c:8992/64 Scope:Link
-      UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-      RX packets:137 errors:0 dropped:0 overruns:0 frame:0
-      TX packets:115 errors:0 dropped:0 overruns:0 carrier:0
-      collisions:0 txqueuelen:1000
-      RX bytes:19705 (19.2 KiB)  TX bytes:12476 (12.1 KiB)
-
-lo    Link encap:Local Loopback
-      inet addr:127.0.0.1  Mask:255.0.0.0
-      inet6 addr: ::1/128 Scope:Host
-      UP LOOPBACK RUNNING  MTU:16436  Metric:1
-      RX packets:0 errors:0 dropped:0 overruns:0 frame:0
-      TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
-      collisions:0 txqueuelen:0
-      RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)</pre>
-```
-
-### SSH into the VM
-
-In this example, the IP address for `eth0` is `192.168.13.129`. From your Mac terminal, SSH into the VM.
-
-```bash
-$ ssh root@192.168.13.129
-```
-
-Now, you can use your Mac-isms (like copy-paste).
-
-## Running the installation script
-
-Now that you're logged into the VM with your Mac, run the following command. This does the bootstrapping of the disk image.
-
-```bash
-$ curl -s https://raw.githubusercontent.com/skyzyx/vagrant-centos7/master/src/setup-install.sh | bash
-```
-
-This will make the necessary changes to the environment to prepare it for becoming a Vagrant box. Once the script completes, shutdown the VM immediately.
-
-```bash
-$ shutdown -h now
-```
-
-## Preparing the Vagrant box
-
-1. Once the virtual machine is shutdown, open _Settings_ for the virtual machine.
-
-1. Click the _CD/DVD (IDE)_ button, expand _Advanced options_, click _Remove CD/DVD Drive_, and click _Remove_.
-
-1. Close the _Settings_ menu.
-
-Go to the directory where your virtual machines are stored. By default this will be either `~/Documents/Virtual\ Machines` or `~/Documents/Virtual\ Machines.localized`.
-
-```bash
-$ cd ~/Documents/Virtual\ Machines/centos-7.2-x64.vmwarevm
-```
-
-Run the following command:
-
-```bash
-$ curl -s https://raw.githubusercontent.com/skyzyx/vagrant-centos7/master/src/build-box-fusion.sh | bash
-```
-
-## Updating the assets
-
-First, you need to generate a hash of the `.box` file.
-
-```bash
-$ openssl dgst -sha256 centos-7.2-x64.vmware.box
-```
-
-### Vagrantfile
-
-Inside the `Vagrantfile`, look for the following section:
+If your intention is only to _use_ one of these CentOS 7.2 images, you can open your `Vagrantfile` and set:
 
 ```ruby
 config.vm.box = "skyzyx/centos7"
+```
+
+## Prerequisites
+
+* Knowledge of the command line.
+* [Packer](https://www.packer.io/downloads.html) 0.10.1 or newer.
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads), for building the VirtualBox Vagrant box.
+* [VMware Fusion](http://www.vmware.com/products/fusion), for building the VMware Vagrant box.
+    * [Vagrant Provider for VMware](https://www.vagrantup.com/vmware/) if you want VMware to work with Vagrant.
+* [Parallels Desktop](http://www.parallels.com/products/desktop/download/), for building the Parallels Vagrant box.
+    * [Parallels Virtualization SDK for Mac](http://www.parallels.com/download/pvsdk/) so that your Mac can talk to Parallels through Vagrant.
+* Knowledge of Bash scripting and JSON if you want to fork this repo and make changes.
+
+## Installing Packer
+
+I'm going to assume that you have already:
+
+1. Installed Vagrant and its dependencies.
+1. Installed (and paid for) the virtualization software of your choice.
+
+You have two choices for installing Packer.
+
+1. If you already have the [Homebrew](http://brew.sh) package manager installed, you can simply do:
+
+   ```bash
+   brew install packer
+   ```
+
+1. Otherwise, you can manually install it from <https://www.packer.io/downloads.html>.
+
+## Building Boxes
+
+### Build everything
+
+This template has built-in support for VirtualBox, VMware, and Parallels Desktop. You can build everything at the same time (assuming you have the relevant prerequisites installed) with:
+
+```bash
+packer build template.json
+```
+
+### Build only one
+
+If you only want to build one particular Vagrant box, you can use the `--only` flag.
+
+```bash
+# VMware
+packer build --only=vmware-iso template.json
+
+# VirtualBox
+packer build --only=virtualbox-iso template.json
+
+# Parallels
+packer build --only=parallels-iso template.json
 ```

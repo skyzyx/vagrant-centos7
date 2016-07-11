@@ -1,0 +1,7 @@
+.DS_Store
+builds/*.box
+http/
+output-parallels-iso/
+output-virtualbox-iso/
+output-vmware-iso/
+packer_cache/
