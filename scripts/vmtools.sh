@@ -34,7 +34,7 @@ vmware-iso|vmware-vmx)
     e "Also install old VMware tools"
     wget -O /tmp/vmware-tools.zip.tar https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/8.1.1/3771013/packages/com.vmware.fusion.tools.linux.zip.tar
     cd /tmp && \
-        tar xzf vmware-tools.zip.tar && \
+        tar xf vmware-tools.zip.tar && \
         unzip com.vmware.fusion.tools.linux.zip && \
         mkdir -p /mnt/vmware && \
         mount /tmp/payload/linux.iso /mnt/vmware && \
