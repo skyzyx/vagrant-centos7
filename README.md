@@ -17,7 +17,7 @@ config.vm.box = "skyzyx/centos7"
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads), for building the VirtualBox Vagrant box.
     * [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plug-in to keep VirtualBox tools up-to-date.
 * [VMware Fusion](http://www.vmware.com/products/fusion), for building the VMware Vagrant box.
-    * [Vagrant Provider for VMware](https://www.vagrantup.com/vmware/) plug-in to enable Vagrant to use VMware as a provider.
+    * [Vagrant Provider for VMware](https://www.vagrantup.com/docs/vmware/installation.html) plug-in to enable Vagrant to use VMware as a provider.
 * [Parallels Desktop](http://www.parallels.com/products/desktop/download/), for building the Parallels Vagrant box.
     * [Parallels Virtualization SDK for Mac](http://www.parallels.com/download/pvsdk/) so that your Mac can talk to Parallels through Vagrant.
     * [vagrant-parallels](http://parallels.github.io/vagrant-parallels/) plug-in to enable Vagrant to use Parallels as a provider.
