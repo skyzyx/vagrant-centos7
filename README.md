@@ -22,6 +22,7 @@ config.vm.box = "skyzyx/centos7"
     * [Parallels Virtualization SDK for Mac](http://www.parallels.com/download/pvsdk/) so that your Mac can talk to Parallels through Vagrant.
     * [vagrant-parallels](http://parallels.github.io/vagrant-parallels/) plug-in to enable Vagrant to use Parallels as a provider.
 * [vagrant-cachier](http://fgrehm.viewdocs.io/vagrant-cachier/) plug-in to enable caching of `yum` packages.
+* [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plug-in to automatically updated your hosts file.
 
 ## Updating your Plug-Ins
 
