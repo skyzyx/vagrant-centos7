@@ -1,0 +1,25 @@
+answer AUTO_KMODS_ENABLED yes
+answer AUTO_KMODS_ENABLED_ANSWER yes
+answer BINDIR /usr/bin
+answer DOCDIR /usr/share/doc/vmware-tools
+answer ENABLE_HGFS yes
+answer INIT_STYLE chkconfig
+answer INITDIR /etc/rc.d
+answer INITRDMODS_CONF_FILE /etc/dracut.conf.d/vmware-tools.conf
+answer INITSCRIPTSDIR /etc/rc.d/init.d
+answer INSTALL_CYCLE yes
+answer LD_DOT_SO_DOT_CONF_ADDED_FILE yes
+answer LIBDIR /usr/lib/vmware-tools
+answer OPEN_VM_COMPAT yes
+answer PVSCSI_CONFED no
+answer RESTORE_RAMDISK_CMD /bin/dracut --force /boot/initramfs-KREL.img KREL
+answer ROOT_ACCESS_METHOD sudo
+answer RUN_CONFIGURATOR no
+answer SBINDIR /usr/sbin
+answer VMCI_CONFED no
+answer VMHGFS_CONFED yes
+answer VMMEMCTL_CONFED no
+answer VMSYNC_CONFED no
+answer VMXNET3_CONFED no
+answer VMXNET_CONFED no
+answer VSOCK_CONFED no

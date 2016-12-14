@@ -1,8 +1,8 @@
-# CentOS 7.2 Vagrant/Docker Boxes
+# CentOS 7.3 Vagrant/Docker Boxes
 
-Building Vagrant images based on CentOS 7.2 (minimal install). All instructions were tested against OS X 10.11 “El Capitan”, VMware Fusion 8, VirtualBox 5, and Parallels Desktop 11.
+Building Vagrant images based on CentOS 7.3 (minimal install). All instructions were tested against macOS 10.12 “Sierra”, VMware Fusion 8.5, VirtualBox 5, and Parallels Desktop 11.
 
-If your intention is only to _use_ one of these CentOS 7.2 images, you can open your `Vagrantfile` and set:
+If your intention is only to _use_ one of these CentOS 7.3 images, you can open your `Vagrantfile` and set:
 
 ```ruby
 config.vm.box = "skyzyx/centos7"
@@ -10,6 +10,32 @@ config.vm.box = "skyzyx/centos7"
 
 * [atlas.hashicorp.com](https://atlas.hashicorp.com/skyzyx/boxes/centos7/)
 * [hub.docker.com](https://hub.docker.com/r/skyzyx/centos7/)
+
+## Why CentOS?
+
+CentOS is a very good, very stable, very reliable server OS. It is essentially an all-open-source version of Red Hat Enterprise Linux.
+
+The flip side is that sometimes we can end up with an older set of packages than we might prefer, which is why I maintain this particular Vagrant/Docker image.
+
+By leveraging [centos7-repos], we can maintain modern software — securely — on a more conservative OS.
+
+### What do you install on top of the base image?
+
+These images are based on a minimal install of CentOS 7.3. On top of that base installation, we install the following:
+
+* We write the image's build time to `/etc/vagrant_box_build_time`.
+* Disable SELinux.
+* Configure `ntp` to speak to `time.nist.gov`, and set the timezone to UTC.
+* Make SSH more secure by forcing _Protocol 2_ and disabling `root` login.
+* Disable all default `yum` updates.
+* Remove ancient PHP and Maria DB libs.
+* Add `/usr/local/bin` to the `$PATH` by default.
+* Enable all `yum` repositories from [centos7-repos].
+* Install the _Development Tools_ `yum` group.
+* Install _modern_ cURL, which can speak HTTP/2, TLS 1.1, and TLS 1.2.
+* Install updates to OpenSSL, strace, htop, nano, vi, and a number of other core packages.
+* Install modern VMware Tools and/or VirtualBox tools.
+* Allow user Vagrant to use `sudo` without entering a password.
 
 ## Prerequisites
 
@@ -101,3 +127,5 @@ packer build --only=parallels-iso template.json
    exit
    vagrant destroy
    ```
+
+  [centos7-repos]: https://github.com/luckyrocketshipunderpants/centos7-repos
