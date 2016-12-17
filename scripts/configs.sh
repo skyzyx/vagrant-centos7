@@ -13,8 +13,8 @@ sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config && \
 setenforce 0
 
 e "Configure NTP"
-chkconfig ntpd on
-service ntpd stop
+systemctl enable ntpd
+systemctl stop ntpd
 ntpdate time.nist.gov
 service ntpd start
 
@@ -39,7 +39,7 @@ e "Remove yum cron job"
 rm -f /etc/cron.daily/0yum*
 
 e "Update the hostname"
-sed -i -e "s/HOSTNAME=localhost.localdomain/HOSTNAME=vagrant-centos7-1611-x64/" /etc/sysconfig/network
+sed -i -e "s/HOSTNAME=localhost.localdomain/HOSTNAME=centos7-1611-x64/" /etc/sysconfig/network
 
 e "Writable /var/log"
 chmod -f 0777 /var/log

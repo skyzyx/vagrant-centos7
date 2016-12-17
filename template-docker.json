@@ -14,9 +14,8 @@
         "docker": {
           "scripts": [
             "scripts/base.sh",
-            "scripts/configs.sh",
             "scripts/packages.sh",
-            "scripts/cleanup.sh"
+            "scripts/configs.sh"
           ]
         }
       }

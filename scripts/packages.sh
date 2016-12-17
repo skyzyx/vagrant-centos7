@@ -30,7 +30,7 @@ e "Remove all .repo files."
 rm -f /etc/yum.repos.d/*
 
 e "Add a set of known/trusted repos."
-curl -s -o /etc/yum.repos.d/all.repo https://raw.githubusercontent.com/skyzyx/centos7-repos/master/all.repo
+curl -s -o /etc/yum.repos.d/centos7.repo https://raw.githubusercontent.com/skyzyx/centos7-repos/master/centos7.repo
 
 e "Sync the correct packages for the distro."
 yum -y distro-sync
