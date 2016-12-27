@@ -50,6 +50,7 @@ yum -y install \
     bzip2 \
     ca-certificates \
     cpp \
+    centos7-repos \
     cronie \
     cronie-anacron \
     crontabs \
