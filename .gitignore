@@ -1,6 +1,5 @@
 .DS_Store
 builds/
-http/
 output-parallels-iso/
 output-virtualbox-iso/
 output-vmware-iso/
