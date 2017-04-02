@@ -82,6 +82,7 @@ yum -y install \
     openssl \
     pcre \
     perl \
+    psmisc \
     readline \
     rpm \
     rsync \
@@ -90,6 +91,7 @@ yum -y install \
     setuptool \
     strace \
     sysstat \
+    tcpdump \
     tcp_wrappers \
     telnet \
     traceroute \
