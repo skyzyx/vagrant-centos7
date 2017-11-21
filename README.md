@@ -1,8 +1,8 @@
-# CentOS 7.3 Vagrant/Docker Boxes
+# CentOS 7.4 Vagrant/Docker Boxes
 
-Building Vagrant images based on CentOS 7.3 (minimal install). All instructions were tested against macOS 10.12 “Sierra”, VMware Fusion 8.5, VirtualBox 5, and Parallels Desktop 11.
+Building Vagrant images based on CentOS 7.4 (minimal install). All instructions were tested against macOS 10.13 “High Sierra”, VMware Fusion 10, VirtualBox 5.1, and Parallels Desktop 11.
 
-If your intention is only to _use_ one of these CentOS 7.3 images, you can open your `Vagrantfile` and set:
+If your intention is only to _use_ one of these CentOS 7.4 images, you can open your `Vagrantfile` and set:
 
 ```ruby
 config.vm.box = "skyzyx/centos7"
@@ -21,7 +21,7 @@ By leveraging [centos7-repos], we can maintain modern software — securely — 
 
 ### What do you install on top of the base image?
 
-These images are based on a minimal install of CentOS 7.3. On top of that base installation, we install the following:
+These images are based on a minimal install of CentOS 7.4. On top of that base installation, we install the following:
 
 * We write the image's build time to `/etc/vagrant_box_build_time`.
 * Disable SELinux.
@@ -39,7 +39,7 @@ These images are based on a minimal install of CentOS 7.3. On top of that base i
 
 ## Prerequisites
 
-* [Packer](https://www.packer.io/downloads.html) 0.10.1 or newer.
+* [Packer](https://www.packer.io/downloads.html) 1.1.2 or newer.
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads), for building the VirtualBox Vagrant box.
     * [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) plug-in to keep VirtualBox tools up-to-date.
 * [VMware Fusion](http://www.vmware.com/products/fusion), for building the VMware Vagrant box.
