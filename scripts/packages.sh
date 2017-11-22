@@ -115,3 +115,6 @@ yum -y install \
     zip \
     zlib \
 ;
+
+e "Update existing packages"
+yum -y update;

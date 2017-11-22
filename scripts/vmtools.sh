@@ -29,20 +29,7 @@ virtualbox-iso|virtualbox-ovf)
 vmware-iso|vmware-vmx)
     e "Use open-vm-tools"
     yum -y install open-vm-tools
-    mkdir -p /mnt/hgfs;
-
-    e "Also install old VMware tools"
-    wget -O /tmp/vmware-tools.zip.tar https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/8.1.1/3771013/packages/com.vmware.fusion.tools.linux.zip.tar
-    cd /tmp && \
-        tar xf vmware-tools.zip.tar && \
-        unzip com.vmware.fusion.tools.linux.zip && \
-        mkdir -p /mnt/vmware && \
-        mount /tmp/payload/linux.iso /mnt/vmware && \
-        tar xzf /mnt/vmware/VMwareTools-*.tar.gz -C /tmp/ && \
-        cd /tmp/vmware-tools-distrib/ && ./vmware-install.pl --force-install --default
     ;;
-
-    # /usr/src/kernels/3.18.34-20.el7.x86_64/include
 
 parallels-iso|parallels-pvm)
     mkdir -p /tmp/parallels;

@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. This projec
 ## 3.1.0 - 2017-11-20
 
 * Built on a minimum install of CentOS 7.4.1708.
+* Updated various scripts to align with [chef/bento @ commit:05d98910d8](https://github.com/chef/bento/tree/05d98910d835b503e7be3d2e4071956f66fbbbc4).
 
 ## 3.0.0 - 2016-12-29
 
