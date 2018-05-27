@@ -1,27 +1,28 @@
-# CentOS 7.4 Vagrant/Docker Boxes
+# CentOS 7.5 Vagrant/Docker Boxes
 
-Building Vagrant images based on CentOS 7.4 (minimal install). All instructions were tested against macOS 10.13 “High Sierra”, VMware Fusion 10, VirtualBox 5.1, and Parallels Desktop 11.
+> **IMPORTANT:** CentOS 7.5 is the _final_ version that I will be building of this AMI. Moving forward, my VM-building efforts will be going primarily into Amazon Linux 2.
 
-If your intention is only to _use_ one of these CentOS 7.4 images, you can open your `Vagrantfile` and set:
+Building Vagrant images based on CentOS 7.5 (minimal install). All instructions were tested against macOS 10.13 “High Sierra”, VMware Fusion 10, VirtualBox 5.1, and Parallels Desktop 11.
+
+If your intention is only to _use_ one of these CentOS 7.5 images, you can open your `Vagrantfile` and set:
 
 ```ruby
 config.vm.box = "skyzyx/centos7"
 ```
 
-* [atlas.hashicorp.com](https://atlas.hashicorp.com/skyzyx/boxes/centos7/)
-* [hub.docker.com](https://hub.docker.com/r/skyzyx/centos7/)
+* [Vagrant Cloud](https://app.vagrantup.com/skyzyx/boxes/centos7)
 
 ## Why CentOS?
 
 CentOS is a very good, very stable, very reliable server OS. It is essentially an all-open-source version of Red Hat Enterprise Linux.
 
-The flip side is that sometimes we can end up with an older set of packages than we might prefer, which is why I maintain this particular Vagrant/Docker image.
+The flip side is that sometimes we can end up with an older set of packages than we might prefer, which is why I maintain this particular Vagrant box.
 
 By leveraging [centos7-repos], we can maintain modern software — securely — on a more conservative OS.
 
 ### What do you install on top of the base image?
 
-These images are based on a minimal install of CentOS 7.4. On top of that base installation, we install the following:
+These images are based on a minimal install of CentOS 7.5. On top of that base installation, we install the following:
 
 * We write the image's build time to `/etc/vagrant_box_build_time`.
 * Disable SELinux.
@@ -101,31 +102,5 @@ packer build --only=virtualbox-iso template.json
 # Parallels
 packer build --only=parallels-iso template.json
 ```
-
-## Building the Docker Image
-
-1. Boot-up a Vagrant VM. This will automatically kick-off the Packer build for Docker.
-
-   ```bash
-   vagrant up
-   ```
-
-2. If you would like to test it, you can import the image into Docker and run the container.
-
-   ```bash
-   # SSH into the VM.
-   vagrant ssh
-   
-   cd /vagrant
-   cat builds/centos7-x64-docker.tar | docker import - skyzyx/centos7:latest
-   docker run -ti skyzyx/centos7:latest /bin/bash
-   ```
-
-3. When you're done, exit the Vagrant VM, then terminate it.
-
-   ```bash
-   exit
-   vagrant destroy
-   ```
 
   [centos7-repos]: https://github.com/luckyrocketshipunderpants/centos7-repos
